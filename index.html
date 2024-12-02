@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Qualifying Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+
+  <div class="container mt-4">
+    <h1 class="text-center">Property Valuation & Qualifying Calculator</h1>
+
+
+    <!-- Property Detail -->
+
+    <h3 class="text-center mt-5">Property Detail</h3>
+
+    <div class="row mt-4">
+
+
+        <div class="col-md-4">
+
+          <div>
+            
+            <label>State of Property</label>
+            <select onchange="updateCalculations()" class="form-control" id="cell_b4_st_of_prop">
+                <!-- <option value="Indiana">Indiana</option> -->
+            </select>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+          <div>
+            <label>Property Address</label>
+            <input type="text" class="form-control" id="cell_b7_property_add"/>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+          <div>
+            <label>Asking Price</label>
+            <input type="text" class="form-control restricted-input" id="cell_b8_asking_price"/>
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+          
+          
+          <div class="mt-3">
+            <label>ARV</label>
+            <input type="text" class="form-control restricted-input" onchange="updateCalculations()" id="cell_b9_zestimate_price"/>
+          </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- Property Detail -->
+
+
+
+    <!-- Home Detail -->
+
+    <h3 class="text-center mt-4">Home Details</h3>
+
+    <div class="row mt-4">
+
+      <div class="col-md-4">
+
+        <div>
+          <label>Home Type (Single Family, Duplex, Ect.)</label>
+          <select class="form-control" id="cell_b12_home_typ">
+            <option value="Single Family">Single Family</option>
+            <option value="Duplex">Duplex</option>
+            <option value="Triplex">Triplex</option>
+            <option value="Fourplex">Fourplex</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        
+      </div>
+
+      <div class="col-md-4">
+
+        <div>
+          <label>Square Footage</label>
+          <input type="text" class="form-control restricted-input" onchange="updateCalculations()" id="cell_b13_sq_footage"
+            value="1000" />
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <div>
+          <label>Bedrooms</label>
+          <input type="text" class="form-control restricted-input" onchange="updateCalculations()" id="cell_b14_bedrooms" value="4" />
+        </div>
+
+      </div>
+
+
+      
+
+      <div class="col-md-4">
+        <div class="mt-3">
+          <label>Full Bathrooms</label>
+          <input type="text" class="form-control restricted-input" onchange="updateCalculations()" id="cell_b15_full_bathrooms"
+            value="2" />
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="mt-3">
+          <label>Half Bathrooms</label>
+          <input type="text" class="form-control restricted-input" onchange="updateCalculations()" id=""
+            value="2" />
+        </div>
+      </div>
+
+
+      <div class="col-md-4">
+
+        <div class="mt-3">
+          <label>Basement</label>
+          <select class="form-control" id="cell_b16_basement">
+            <option value="Partial, Unfinished">Partial, Unfinished</option>
+            <option value="No basement">No basement</option>
+            <option value="Partial">Partial</option>
+            <option value="Unfinished">Unfinished</option>
+            <option value="Full">Full</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </div>
+
+      </div>
+    
+    </div>
+
+    <!-- Home Detail -->
+
+
+
+
+
+
+    <div class="accordion mt-5" id="accordionExample">
+      
+      
+      <div class="accordion-item">
+
+
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Interior   <span id="interior_sum" class="px-3 font-weight-bold">$0</span>
+          </button>
+        </h2>
+
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            
+
+
+             <!-- Flooring -->
+
+            <h3 class="text-center">Flooring</h3>
+
+            <div class="text-center">
+              <h6 id="cell_b18_flooring">
+              </h6>
+            </div>
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="flooring_inp_checkbox" class="flex-fill set_box" id="flooring_input_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="flooring_inp_checkbox">No work needed/like new condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed/like new condition" name="flooring" onclick="updateCalculations()" id="flooring_inp_checkbox"/>
+                </div>
+
+              </label>
+
+
+              <label for="flooring_minor" class="flex-fill set_box" id="flooring_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b20_minor_repair">
+                  </h6>
+                  <label for="flooring_minor">Minor Repairs | Good Condition </label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Good Condition" name="flooring" onclick="updateCalculations()" id="flooring_minor"/>
+                </div>
+
+              </label>
+
+
+              <label for="flooring_25_per" class="flex-fill set_box" id="flooring_25_per_Div">
+
+                <div class="">
+                  <h6 id="cell_b21_need_rep">
+                  </h6>
+                  <label for="flooring_25_per">25% or less needs replacement or attention </label>
+                  <input style="display: none;" type="radio" value="25% or less needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_25_per"/>
+                </div>
+
+              </label>
+
+
+              <label for="flooring_25_50_per" class="flex-fill set_box" id="flooring_25_50_per_Div">
+                
+                <div class="">
+                  <h6 id="cell_b22_need_rep_25">
+                  </h6>
+                  <label for="flooring_25_50_per">25%-50% needs replacement or attention </label>
+                          <input style="display: none;" type="radio" value="25%-50% needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_25_50_per"/>
+                </div>
+              </label>
+
+
+              <label for="flooring_50_75_per" class="flex-fill set_box" id="flooring_50_75_per_Div">
+
+                <div class="">
+                  <h6 id="cell_b23_need_rep_50">
+                  </h6>
+                  <label for="flooring_50_75_per">50%-75% needs replacement or attention</label>
+                  <input style="display: none;" type="radio" value="50%-75% needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_50_75_per"/>
+                </div>
+
+              </label>
+
+
+              <label for="flooring_rep_thr" class="flex-fill set_box" id="flooring_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b24_need_rep_thr">
+                  </h6>
+                  <label for="flooring_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="flooring" onclick="updateCalculations()" id="flooring_rep_thr"/>
+                </div>
+
+              </label>
+            
+
+            </div>
+
+
+            <!-- Flooring -->
+
+
+
+
+            <!-- WALL -->
+
+              <h3 class="text-center mt-5">Walls</h3>
+              <div class="text-center">
+                <h6 id="cell_b26_walls">
+                </h6>
+              </div>
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+                <label for="walls_noWork" class="flex-fill set_box" id="walls_noWork_Div">
+
+                  <div class="">
+                    <h6>$0</h6>
+                    <label for="walls_noWork">No work needed/like new condition</label>
+                    <input style="display: none;" checked type="radio" value="No work needed/like new condition" name="walls"
+                      onclick="updateCalculations()" id="walls_noWork" />
+                  </div>
+
+                </label>
+
+
+                <label for="walls_minor" class="flex-fill set_box" id="walls_minor_Div">
+
+                  <div class="">
+                    <h6 id="cell_b28_mixed_rep">$0</h6>
+                    <label for="walls_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                    <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition"
+                      name="walls" onclick="updateCalculations()" id="walls_minor" />
+                  </div>
+
+                </label>
+
+
+                <label for="walls_mixed" class="flex-fill set_box" id="walls_mixed_Div">
+
+                  <div class="">
+                    <h6 id="cell_b29_mixed_cond">$0</h6>
+                    <label for="walls_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                    <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                      name="walls" onclick="updateCalculations()" id="walls_mixed" />
+                  </div>
+
+                </label>
+                <label for="walls_maj_repair" class="flex-fill set_box" id="walls_maj_repair_Div">
+
+                  <div class="">
+                    <h6 id="cell_b30_major_rep">$0</h6>
+                    <label for="walls_maj_repair">Major Repairs | More than cosmetic</label>
+                    <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="walls"
+                      onclick="updateCalculations()" id="walls_maj_repair" />
+                  </div>
+
+                </label>
+                <label for="walls_rep_thr" class="flex-fill set_box" id="walls_rep_thr_Div">
+
+                  <div class="">
+                    <h6 id="cell_b31_rep_thr">$0</h6>
+                    <label for="walls_rep_thr">Replacement throughout</label>
+                    <input style="display: none;" type="radio" value="Replacement throughout" name="walls"
+                      onclick="updateCalculations()" id="walls_rep_thr" />
+                  </div>
+
+                </label>
+
+
+              </div>
+
+
+            <!-- WALL -->
+
+
+
+
+
+
+
+            <!-- Kitchen  -->
+
+            <h3 class="text-center mt-5">Kitchen</h3>
+            <div class="text-center">
+              <h6 id="cell_b33_kitchen">
+              </h6>
+            </div>
+
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="kitchen_noWork" class="flex-fill set_box" id="kitchen_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="kitchen_noWork">No work needed/like new condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed/like new condition" name="kitchen" onclick="updateCalculations()" id="kitchen_noWork"/>
+                </div>
+
+              </label>
+
+
+              <label for="kitchen_minor" class="flex-fill set_box" id="kitchen_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b35_minor_reapair"></h6>
+                  <label for="kitchen_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition" name="kitchen" onclick="updateCalculations()" id="kitchen_minor"/>
+                </div>
+
+              </label>
+
+
+              <label for="kitchen_mixed" class="flex-fill set_box" id="kitchen_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b36_mixed_cond"></h6>
+                  <label for="kitchen_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout" name="kitchen" onclick="updateCalculations()" id="kitchen_mixed"/>
+                </div>
+
+              </label>
+
+              <label for="kitchen_maj_repair" class="flex-fill set_box" id="kitchen_maj_repair_Div">
+
+                <div class="">
+                  <h6 id="cell_b37_major_repair"></h6>
+                  <label for="kitchen_maj_repair">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" name="kitchen" value="Major Repairs | More than cosmetic" onclick="updateCalculations()" id="kitchen_maj_repair"/>
+                </div>
+
+              </label>
+
+              <label for="kitchen_rep_thr" class="flex-fill set_box" id="kitchen_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b38_rep_thr"></h6>
+                  <label for="kitchen_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="kitchen" onclick="updateCalculations()" id="kitchen_rep_thr"/>
+                </div>
+
+              </label>
+
+
+
+            </div>
+
+
+            <!-- Kitchen  -->
+
+
+
+
+
+            <!-- Full Bathrooms -->
+
+
+            <h3 class="text-center mt-5">Full Bathrooms</h3>
+            <div class="text-center">
+              <h6 id="cell_b40_full_bathroom">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+              <label>No of Full Bathrooms</label>
+              <input class="form-control" value="1" id="multp_of_fullBathrroms" oninput="updateCalculations()"/>
+
+              <label for="fullBathroom_noWork" class="flex-fill set_box" id="fullBathroom_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="fullBathroom_noWork">No work needed/like new condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed/like new condition"
+                    name="fullBathRoom" onclick="updateCalculations()" id="fullBathroom_noWork" />
+                </div>
+
+              </label>
+
+
+              <label for="fullBathroom_minor" class="flex-fill set_box" id="fullBathroom_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b42_minor_rep">$0</h6>
+                  <label for="fullBathroom_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition<"
+                    name="fullBathRoom" onclick="updateCalculations()" id="fullBathroom_minor" />
+                </div>
+
+              </label>
+
+
+              <label for="fullBathroom_mixed" class="flex-fill set_box" id="fullBathroom_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b43_minor_rep">$0</h6>
+                  <label for="fullBathroom_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                    name="fullBathRoom" onclick="updateCalculations()" id="fullBathroom_mixed" />
+                </div>
+
+              </label>
+              <label for="fullBathroom_major" class="flex-fill set_box" id="fullBathroom_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b44_minor_rep">$0</h6>
+                  <label for="fullBathroom_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" value="Major Repairs | More than cosmetic" type="radio" name="fullBathRoom"
+                    onclick="updateCalculations()" id="fullBathroom_major" />
+                </div>
+
+              </label>
+              <label for="fullBathroom_rep_thr" class="flex-fill set_box" id="fullBathroom_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b45_rep_thr">$0</h6>
+                  <label for="fullBathroom_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="fullBathRoom"
+                    onclick="updateCalculations()" id="fullBathroom_rep_thr" />
+                </div>
+
+              </label>
+
+
+            </div>
+
+
+          <!-- Full Bathrooms -->
+
+
+
+
+            <!-- Half bath room -->
+
+
+
+            <h3 class="text-center mt-5">Half BathRoom</h3>
+            <div class="text-center">
+              <h6 id="cell_b47_halfBathroom">
+              </h6>
+            </div>
+
+
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label>No of Half Bathrooms</label>
+              <input class="form-control" value="1" id="multp_of_halfBathrroms" oninput="updateCalculations()"/>
+
+              <label for="halfBathroom_noWork" class="flex-fill set_box" id="halfBathroom_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="halfBathroom_noWork">No work needed/like new condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed/like new condition" name="half_bathroom" onclick="updateCalculations()" id="halfBathroom_noWork"/>
+                </div>
+
+              </label>
+
+
+              <label for="halfBathroom_minor" class="flex-fill set_box" id="halfBathroom_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b49_minor_rep">$250</h6>
+                  <label for="halfBathroom_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition" name="half_bathroom" onclick="updateCalculations()" id="halfBathroom_minor"/>
+                </div>
+
+              </label>
+
+
+              <label for="halfBathroom_mixed" class="flex-fill set_box" id="halfBathroom_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b50_mix_cond">$750</h6>
+                  <label for="halfBathroom_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout" name="half_bathroom" onclick="updateCalculations()" id="halfBathroom_mixed"/>
+                </div>
+
+              </label>
+
+
+              <label for="halfBathroom_maj" class="flex-fill set_box" id="halfBathroom_maj_Div">
+
+                <div class="">
+                  <h6 id="cell_b51_mix_cond">$1,500</h6>
+                  <label for="halfBathroom_maj">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="half_bathroom" onclick="updateCalculations()" id="halfBathroom_maj"/>
+                </div>
+
+              </label>
+
+
+
+
+              <label for="halfBathroom_rep_thr" class="flex-fill set_box" id="halfBathroom_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b52_rep_thr">$2,000</h6>
+                  <label for="halfBathroom_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="half_bathroom" onclick="updateCalculations()" id="halfBathroom_rep_thr"/>
+                </div>
+
+              </label>
+
+
+
+
+              </div>
+
+
+            <!-- Half bath room -->
+
+
+
+
+
+            <!-- Appliances -->
+
+            <h3 class="text-center mt-5">Appliances</h3>
+            <div class="text-center">
+              <h6 id="cell_b54_app">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="appliances_newLike" class="flex-fill set_box" id="appliances_newLike_Div">
+
+                <div class="">
+                  <h6 id="cell_b55_app">$0</h6>
+                  <label for="appliances_newLike">New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="New/Like New Condition" name="appliances"
+                    onclick="updateCalculations()" id="appliances_newLike" />
+                </div>
+
+              </label>
+
+
+              <label for="appliances_goodCond" class="flex-fill set_box" id="appliances_goodCond_Div">
+
+                <div class="">
+                  <h6 id="cell_b56_app">$500</h6>
+                  <label for="appliances_goodCond">Good Condition</label>
+                  <input style="display: none;" type="radio" value="Good Condition" name="appliances"
+                    onclick="updateCalculations()" id="appliances_goodCond" />
+                </div>
+
+              </label>
+
+
+              <label for="appliances_fairCond" class="flex-fill set_box" id="appliances_fairCond_Div">
+
+                <div class="">
+                  <h6 id="cell_b57_app">$1,250</h6>
+                  <label for="appliances_fairCond">Fair Condition</label>
+                  <input style="display: none;" type="radio" value="Fair Condition" name="appliances"
+                    onclick="updateCalculations()" id="appliances_fairCond" />
+                </div>
+
+              </label>
+              <label for="appliances_replNeeded" class="flex-fill set_box" id="appliances_replNeeded_Div">
+
+                <div class="">
+                  <h6 id="cell_b58_app">$2,500</h6>
+                  <label for="appliances_replNeeded">Replacement Needed</label>
+                  <input style="display: none;" type="radio" value="Replacement Needed" name="appliances"
+                    onclick="updateCalculations()" id="appliances_replNeeded" />
+                </div>
+
+              </label>
+
+
+            </div>
+
+            <!-- Appliances -->
+
+
+
+
+             <!-- Miscellaneous -->
+
+
+              <h3 class="text-center mt-5">Miscellaneous</h3>
+              <div class="text-center">
+                <h6 id="cell_b60_miscell">
+                </h6>
+              </div>
+
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="Miscellaneous_minimal" class="flex-fill set_box" id="Miscellaneous_minimal_Div">
+
+                <div class="">
+                  <h6 id="cell_b61_minimal">$1,500</h6>
+                  <label for="Miscellaneous_minimal">Minimal </label>
+                  <input style="display: none;" checked type="radio" value="Minimal" name="Miscellaneous" onclick="updateCalculations()" id="Miscellaneous_minimal"/>
+                </div>
+
+              </label>
+
+
+              <label for="Miscellaneous_Moderate" class="flex-fill set_box" id="Miscellaneous_Moderate_Div">
+
+                <div class="">
+                  <h6 id="cell_b62_moderate">$25,000</h6>
+                  <label for="Miscellaneous_Moderate">Moderate </label>
+                  <input style="display: none;" type="radio" value="Moderate" name="Miscellaneous" onclick="updateCalculations()" id="Miscellaneous_Moderate"/>
+                </div>
+
+              </label>
+
+
+              <label for="Miscellaneous_high" class="flex-fill set_box" id="Miscellaneous_high_Div">
+
+                <div class="">
+                  <h6 id="cell_b63_High">$5,000</h6>
+                  <label for="Miscellaneous_high">High </label>
+                  <input style="display: none;" type="radio" value="High" name="Miscellaneous" onclick="updateCalculations()" id="Miscellaneous_high"/>
+                </div>
+
+              </label>
+
+
+
+              </div>
+
+
+            <!-- Miscellaneous -->
+
+
+
+
+
+             
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Exterior <span id="exterior_sum" class="px-3 3 font-weight-bold">$0</span>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            
+
+
+
+
+            <!-- Siding | Flashing | Trim | Exterior Doors | Soffets -->
+
+            <h3 class="text-center">Siding | Flashing | Trim | Exterior Doors | Soffets</h3>
+            <div class="text-center">
+              <h6 id="cell_b67_siding">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="siding_self" class="flex-fill set_box" id="siding_self_Div">
+
+                <div class="">
+                  <h6 id="">$0</h6>
+                  <label for="siding_self">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition"
+                    name="Siding" onclick="updateCalculations()" id="siding_self" />
+                </div>
+
+              </label>
+
+
+              <label for="siding_minor" class="flex-fill set_box" id="siding_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b69_minor_rep">$0</h6>
+                  <label for="siding_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition"
+                    name="Siding" onclick="updateCalculations()" id="siding_minor" />
+                </div>
+
+              </label>
+
+              <label for="siding_mixed" class="flex-fill set_box" id="siding_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b70_mixed_cond">$0</h6>
+                  <label for="siding_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                    name="Siding" onclick="updateCalculations()" id="siding_mixed" />
+                </div>
+
+              </label>
+
+
+              <label for="siding_major" class="flex-fill set_box" id="siding_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b71_maj_repair">$0</h6>
+                  <label for="siding_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="Siding"
+                    onclick="updateCalculations()" id="siding_major" />
+                </div>
+
+              </label>
+
+              <label for="siding_rep_thr" class="flex-fill set_box" id="siding_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b72_rep_thr">$0</h6>
+                  <label for="siding_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" name="Siding" value="Replacement throughout"
+                    onclick="updateCalculations()" id="siding_rep_thr" />
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- Siding | Flashing | Trim | Exterior Doors | Soffets -->
+
+
+
+
+            <!-- Landingscaping -->
+
+
+              <h3 class="text-center mt-5">Landingscaping</h3>
+              <div class="text-center">
+                <h6 id="cell_b74_landing">
+                </h6>
+              </div>
+
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="Landingscaping_noWork" class="flex-fill set_box" id="Landingscaping_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="Landingscaping_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="Landingscaping" onclick="updateCalculations()" id="Landingscaping_noWork"/>
+                </div>
+
+              </label>
+
+
+
+              <label for="Landingscaping_minor" class="flex-fill set_box" id="Landingscaping_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b76_minor_work">$500</h6>
+                  <label for="Landingscaping_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition" name="Landingscaping" onclick="updateCalculations()" id="Landingscaping_minor"/>
+                </div>
+
+              </label>
+
+
+              
+
+              <label for="Landingscaping_mixed" class="flex-fill set_box" id="Landingscaping_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b77_mix_cond">$750</h6>
+                  <label for="Landingscaping_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout" name="Landingscaping" onclick="updateCalculations()" id="Landingscaping_mixed"/>
+                </div>
+
+              </label>
+
+
+              <label for="Landingscaping_major" class="flex-fill set_box" id="Landingscaping_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b78_maj_rep">$1,500</h6>
+                  <label for="Landingscaping_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="Landingscaping" onclick="updateCalculations()" id="Landingscaping_major"/>
+                </div>
+
+              </label>
+
+
+              
+              <label for="Landingscaping_repl" class="flex-fill set_box" id="Landingscaping_repl_Div">
+
+                <div class="">
+                  <h6 id="cell_b79_maj_rep">$2,000</h6>
+                  <label for="Landingscaping_repl">Replacement throughout</label>
+                  <input style="display: none;" value="Replacement throughout" type="radio" name="Landingscaping" onclick="updateCalculations()" id="Landingscaping_repl"/>
+                </div>
+
+              </label>
+
+
+              </div>
+
+
+            <!-- Landingscaping -->
+
+
+
+
+
+            <!-- Walkways | Patios | Porches | Driveways -->
+
+            <h3 class="text-center mt-5">Walkways | Patios | Porches | Driveways</h3>
+            <div class="text-center">
+              <h6 id="cell_b81_walkaways">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="siding_self" class="flex-fill set_box" id="Walkways_noWork_Div">
+
+                <div class="">
+                  <h6 id="">$0</h6>
+                  <label for="Walkways_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition"
+                    name="Walkways" onclick="updateCalculations()" id="Walkways_noWork" />
+                </div>
+
+              </label>
+
+
+
+
+              <label for="Walkways_minor" class="flex-fill set_box" id="Walkways_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b83_minor_rep">$750</h6>
+                  <label for="Walkways_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition"
+                    name="Walkways" onclick="updateCalculations()" id="Walkways_minor" />
+                </div>
+
+              </label>
+
+
+
+
+              <label for="Walkways_mixed" class="flex-fill set_box" id="Walkways_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b84_mixed_cond">$2,000</h6>
+                  <label for="Walkways_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                    name="Walkways" onclick="updateCalculations()" id="Walkways_mixed" />
+                </div>
+
+              </label>
+
+              <label for="Walkways_major" class="flex-fill set_box" id="Walkways_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b85_maj_rep">$5,000</h6>
+                  <label for="Walkways_major">Major Repairs</label>
+                  <input style="display: none;" type="radio" name="Walkways" value="Major Repairs"
+                    onclick="updateCalculations()" id="Walkways_major" />
+                </div>
+
+              </label>
+
+
+
+
+              <label for="Walkways_rep_thr" class="flex-fill set_box" id="Walkways_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b86_rep_thr">$10,000</h6>
+                  <label for="Walkways_rep_thr">Replacement Throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement Throughout" name="Walkways"
+                    onclick="updateCalculations()" id="Walkways_rep_thr" />
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- Walkways | Patios | Porches | Driveways -->
+
+
+
+
+             <!-- Fencing -->
+
+            <h3 class="text-center mt-5">Fencing</h3>
+            <div class="text-center">
+            <h6 id="cell_b88_fencing"></h6>
+            </div>
+
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="Fencing_noWork" class="flex-fill set_box" id="Fencing_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="Fencing_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" name="Fencing" value="No work needed | New/Like New Condition" onclick="updateCalculations()" id="Fencing_noWork"/>
+                </div>
+
+              </label>
+
+
+              <label for="Fencing_minor" class="flex-fill set_box" id="Fencing_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b90_minor_rep">$250</h6>
+                  <label for="Fencing_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition" name="Fencing" onclick="updateCalculations()" id="Fencing_minor"/>
+                </div>
+
+              </label>
+
+
+              <label for="Fencing_mixed" class="flex-fill set_box" id="Fencing_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b91_mixed_cond">$2,000</h6>
+                  <label for="Fencing_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout" name="Fencing" onclick="updateCalculations()" id="Fencing_mixed"/>
+                </div>
+
+              </label>
+
+
+              <label for="Fencing_major" class="flex-fill set_box" id="Fencing_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b92_major_rep">$3,500</h6>
+                  <label for="Fencing_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="Fencing" onclick="updateCalculations()" id="Fencing_major"/>
+                </div>
+
+              </label>
+
+
+              <label for="Fencing_major_rep_thr" class="flex-fill set_box" id="Fencing_major_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b93_rep_thr">$5,000</h6>
+                  <label for="Fencing_major_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="Fencing" onclick="updateCalculations()" id="Fencing_major_rep_thr"/>
+                </div>
+
+              </label>
+
+
+            </div>
+
+
+
+            <!-- Fencing -->
+
+
+
+
+
+            <!-- Deck -->
+
+            <h3 class="text-center mt-5">Deck</h3>
+            <div class="text-center">
+              <h6 id="cell_b88_deck">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="siding_self" class="flex-fill set_box" id="Deck_noWork_Div">
+
+                <div class="">
+                  <h6 id="cell_b96_no_work">$0</h6>
+                  <label for="Deck_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="Deck"
+                    onclick="updateCalculations()" id="Deck_noWork" />
+                </div>
+
+              </label>
+
+
+              <label for="Deck_minor" class="flex-fill set_box" id="Deck_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b97_minor_rep">$250</h6>
+                  <label for="Deck_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs | Cosmetic Upgrades | Good Condition"
+                    name="Deck" onclick="updateCalculations()" id="Deck_minor" />
+                </div>
+
+              </label>
+
+              <label for="Deck_mixed" class="flex-fill set_box" id="Deck_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b98_mixed_cond">$2,000</h6>
+                  <label for="Deck_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                    name="Deck" onclick="updateCalculations()" id="Deck_mixed" />
+                </div>
+
+              </label>
+
+
+              <label for="Deck_major" class="flex-fill set_box" id="Deck_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b99_major_rep">$3,500</h6>
+                  <label for="Deck_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="Deck"
+                    onclick="updateCalculations()" id="Deck_major" />
+                </div>
+
+              </label>
+
+
+              <label for="Deck_rep_thr" class="flex-fill set_box" id="Deck_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b100_rep_thr">$5,000</h6>
+                  <label for="Deck_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="Deck"
+                    onclick="updateCalculations()" id="Deck_rep_thr" />
+                </div>
+
+              </label>
+
+
+            </div>
+
+            <!-- Deck -->
+
+
+
+
+
+
+            <!-- Roof | Gutters -->
+
+            <h3 class="text-center mt-5">Roof | Gutters</h3>
+            <div class="text-center">
+            <h6 id="cell_b102_roof"></h6>
+            </div>
+
+
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+            <label for="Roof_noWork" class="flex-fill set_box" id="Roof_noWork_Div">
+
+              <div class="">
+                <h6>$0</h6>
+                <label for="Roof_noWork">No work needed | New/Like New Condition</label>
+                <input style="display: none;" checked value="No work needed | New/Like New Condition" type="radio" name="Roof" onclick="updateCalculations()" id="Roof_noWork"/>
+              </div>
+
+            </label>
+
+
+            <label for="Roof_repair" class="flex-fill set_box" id="Roof_repair_Div">
+
+              <div class="">
+                <h6 id="cell_b104_repair_needed"></h6>
+                <label for="Roof_repair">Repairs Needed</label>
+                <input style="display: none;" value="Repairs Needed" type="radio" name="Roof" onclick="updateCalculations()" id="Roof_repair"/>
+              </div>
+
+            </label>
+
+
+            <label for="Roof_repl" class="flex-fill set_box" id="Roof_repl_Div">
+
+              <div class="">
+                <h6 id="cell_b105_rep"></h6>
+                <label for="Roof_repl">Replacement </label>
+                <input style="display: none;" value="Replacement" type="radio" name="Roof" onclick="updateCalculations()" id="Roof_repl"/>
+              </div>
+
+            </label>
+
+
+
+            </div>
+
+
+
+            <!-- Roof | Gutters -->
+
+
+
+
+             <!-- Windows -->
+
+            <h3 class="text-center mt-5">Windows</h3>
+            <div class="text-center">
+              <h6 id="cell_b107_windows">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+              <label>No of Windows</label>
+              <input class="form-control" value="1" id="multp_of_windows" oninput="updateCalculations()"/>
+
+
+              <label for="Windows_NoOFWin" class="flex-fill set_box" id="Windows_NoOFWin_Div">
+
+                <div class="">
+                  <h6 id="cell_b108_b_ans">$0</h6>
+                  <label for="Windows_NoOFWin">Windows</label>
+                  <input style="display: none;" checked type="radio" value="Number of Windows" name="Windows"
+                    onclick="updateCalculations()" id="Windows_NoOFWin" />
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- Windows -->
+
+
+
+
+            <!-- Unfinished Basement -->
+
+            <h3 class="text-center mt-5">Unfinished Basement</h3>
+            <div class="text-center">
+            <h6 id="cell_b110_unfin"></h6>
+            </div>
+
+
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="unfinished_noWork" class="flex-fill set_box" id="unfinished_noWork_Div">
+
+                <div class="">
+                  <h6>$0</h6>
+                  <label for="unfinished_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="Unfinished" onclick="updateCalculations()" id="unfinished_noWork"/>
+                </div>
+
+              </label>
+
+
+
+
+              <label for="unfinished_minor" class="flex-fill set_box" id="unfinished_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b112_minor_rep">$2,500</h6>
+                  <label for="unfinished_minor">Minor Repairs</label>
+                  <input style="display: none;" value="Minor Repairs" type="radio" name="Unfinished" onclick="updateCalculations()" id="unfinished_minor"/>
+                </div>
+
+              </label>
+
+
+
+              <label for="unfinished_major" class="flex-fill set_box" id="unfinished_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b113_major_rep">$10,000</h6>
+                  <label for="unfinished_major">Major Repairs</label>
+                  <input style="display: none;" value="Major Repairs" type="radio" name="Unfinished" onclick="updateCalculations()" id="unfinished_major"/>
+                </div>
+
+              </label>
+
+
+              <label for="unfinished_repl_thr" class="flex-fill set_box" id="unfinished_repl_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b114_rep_thr">$30,000</h6>
+                  <label for="unfinished_repl_thr">Replacement throughout</label>
+                  <input style="display: none;" value="Replacement throughout" type="radio" name="Unfinished" onclick="updateCalculations()" id="unfinished_repl_thr"/>
+                </div>
+
+              </label>
+
+
+
+            </div>
+
+
+
+
+            <!-- Unfinished Basement -->
+
+
+
+
+            <!-- Finished Basement -->
+
+            <h3 class="text-center mt-5">Finished Basement</h3>
+            <div class="text-center">
+              <h6 id="cell_b116_fini_base">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="Finished_noWork" class="flex-fill set_box" id="Finished_noWork_Div">
+
+                <div class="">
+                  <h6 id="cell_b117_no_work">$0</h6>
+                  <label for="Finished_noWork">No work needed/like new condition</label>
+                  <input style="display: none;" checked value="No work needed/like new condition" type="radio" name="Finished"
+                    onclick="updateCalculations()" id="Finished_noWork" />
+                </div>
+
+              </label>
+
+              <label for="Finished_minor" class="flex-fill set_box" id="Finished_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b118_no_work">$0</h6>
+                  <label for="Finished_minor">Minor Repairs | Cosmetic Upgrades | Good Condition</label>
+                  <input style="display: none;" value="Minor Repairs | Cosmetic Upgrades | Good Condition" type="radio"
+                    name="Finished" onclick="updateCalculations()" id="Finished_minor" />
+                </div>
+
+              </label>
+
+
+              <label for="Finished_mixed" class="flex-fill set_box" id="Finished_mixed_Div">
+
+                <div class="">
+                  <h6 id="cell_b119_mixed_cond">$0</h6>
+                  <label for="Finished_mixed">Mixed Condition | Minor/Major Repairs needed throughout</label>
+                  <input style="display: none;" type="radio" value="Mixed Condition | Minor/Major Repairs needed throughout"
+                    name="Finished" onclick="updateCalculations()" id="Finished_mixed" />
+                </div>
+
+              </label>
+
+              <label for="Finished_major" class="flex-fill set_box" id="Finished_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b120_maj_rep">$0</h6>
+                  <label for="Finished_major">Major Repairs | More than cosmetic</label>
+                  <input style="display: none;" type="radio" value="Major Repairs | More than cosmetic" name="Finished"
+                    onclick="updateCalculations()" id="Finished_major" />
+                </div>
+
+              </label>
+
+
+              <label for="Finished_rep_thr" class="flex-fill set_box" id="Finished_rep_thr_Div">
+
+                <div class="">
+                  <h6 id="cell_b121_rep_thr">$0</h6>
+                  <label for="Finished_rep_thr">Replacement throughout</label>
+                  <input style="display: none;" type="radio" value="Replacement throughout" name="Finished"
+                    onclick="updateCalculations()" id="Finished_rep_thr" />
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- Finished Basement -->
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Components   <span id="components_sum" class="px-3 3 font-weight-bold">$0</span>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+           
+
+            <!-- HVAC -->
+
+              <h3 class="text-center">HVAC</h3>
+              <div class="text-center">
+                <h6 id="cell_b125_fini_base"></h6>
+              </div>
+
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+                <label for="HVAC_noWork" class="flex-fill set_box" id="HVAC_noWork_Div">
+
+                  <div class="">
+                    <h6>$0</h6>
+                    <label for="HVAC_noWork">No work needed | New/Like New Condition</label>
+                    <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="HVAC" onclick="updateCalculations()" id="HVAC_noWork"/>
+                  </div>
+
+                </label>
+
+                <label for="HVAC_repair" class="flex-fill set_box" id="HVAC_repair_Div">
+
+                  <div class="">
+                    <h6 id="cell_b127_repair_needed">$2,000</h6>
+                    <label for="HVAC_repair">Repairs Needed</label>
+                    <input style="display: none;" type="radio" value="Repairs Needed" name="HVAC" onclick="updateCalculations()" id="HVAC_repair"/>
+                  </div>
+
+                </label>
+
+
+
+                <label for="HVAC_replacement" class="flex-fill set_box" id="HVAC_replacement_Div">
+
+                  <div class="">
+                    <h6 id="cell_b128_Replacement">$10,000</h6>
+                    <label for="HVAC_replacement">Replacement</label>
+                    <input style="display: none;" type="radio" value="Replacement" name="HVAC" onclick="updateCalculations()" id="HVAC_replacement"/>
+                  </div>
+
+                </label>
+
+
+              </div>
+
+              <!-- HVAC -->
+
+
+
+
+
+              <!-- Plumbing -->
+
+              <h3 class="text-center mt-5">Plumbing</h3>
+              <div class="text-center">
+                <h6 id="cell_b130_plumbing">
+                </h6>
+              </div>
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+                <label for="plumbing_noWork" class="flex-fill set_box" id="plumbing_noWork_Div">
+
+                  <div class="">
+                    <h6 id="">$0</h6>
+                    <label for="plumbing_noWork">No work needed | New/Like New Condition</label>
+                    <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition"
+                      name="Plumbing" onclick="updateCalculations()" id="plumbing_noWork" />
+                  </div>
+
+                </label>
+
+
+                <label for="plumbing_minor" class="flex-fill set_box" id="plumbing_minor_Div">
+
+                  <div class="">
+                    <h6 id="cell_b132_repair_needed">$500</h6>
+                    <label for="plumbing_minor">Minor Repairs</label>
+                    <input style="display: none;" type="radio" value="Minor Repairs" name="Plumbing"
+                      onclick="updateCalculations()" id="plumbing_minor" />
+                  </div>
+
+                </label>
+
+
+                <label for="plumbing_major" class="flex-fill set_box" id="plumbing_major_Div">
+
+                  <div class="">
+                    <h6 id="cell_b133_maj_rep">$2,500</h6>
+                    <label for="plumbing_major">Major Repairs</label>
+                    <input style="display: none;" type="radio" value="Major Repairs" name="Plumbing"
+                      onclick="updateCalculations()" id="plumbing_major" />
+                  </div>
+
+                </label>
+
+
+                <label for="plumbing_replacment" class="flex-fill set_box" id="plumbing_replacment_Div">
+
+                  <div class="">
+                    <h6 id="cell_b134_maj_rep">$10,000</h6>
+                    <label for="plumbing_replacment">Replacement</label>
+                    <input style="display: none;" type="radio" value="Replacement" name="Plumbing" onclick="updateCalculations()"
+                      id="plumbing_replacment" />
+                  </div>
+
+                </label>
+
+              </div>
+
+              <!-- Plumbing -->
+
+
+
+
+
+
+              <!-- Electrical -->
+
+              <h3 class="text-center mt-5">Electrical</h3>
+              <div class="text-center">
+                <h6 id="cell_b136_plumbing"></h6>
+              </div>
+
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+                <label for="electrical_noWork" class="flex-fill set_box" id="electrical_noWork_Div">
+
+                  <div class="">
+                    <h6>$0</h6>
+                    <label for="electrical_noWork">No work needed | New/Like New Condition</label>
+                    <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="Electrical" onclick="updateCalculations()" id="electrical_noWork"/>
+                  </div>
+
+                </label>
+
+
+                <label for="electrical_minor" class="flex-fill set_box" id="electrical_minor_Div">
+
+                  <div class="">
+                    <h6 id="cell_b138_minor_repair">$500</h6>
+                    <label for="electrical_minor">Minor Repairs</label>
+                    <input style="display: none;" type="radio" value="Minor Repairs" name="Electrical" onclick="updateCalculations()" id="electrical_minor"/>
+                  </div>
+
+                </label>
+
+                <label for="electrical_major" class="flex-fill set_box" id="electrical_major_Div">
+
+                  <div class="">
+                    <h6 id="cell_b139_minor_repair">$2,500</h6>
+                    <label for="electrical_major">Major Repairs</label>
+                    <input style="display: none;" type="radio" value="Major Repairs" name="Electrical" onclick="updateCalculations()" id="electrical_major"/>
+                  </div>
+
+                </label>
+
+                <label for="electrical_replacment" class="flex-fill set_box" id="electrical_replacment_Div">
+
+                  <div class="">
+                    <h6 id="cell_b140_minor_repair">$10,000</h6>
+                    <label for="electrical_replacment">Replacement</label>
+                    <input style="display: none;" type="radio" value="Replacement" name="Electrical" onclick="updateCalculations()" id="electrical_replacment"/>
+                  </div>
+
+                </label>
+
+              </div>
+
+
+              <!-- Electrical -->
+
+
+
+
+
+              <!-- Fireplace -->
+
+              <h3 class="text-center mt-5">Fireplace</h3>
+              <div class="text-center">
+                <h6 id="cell_b142_fireplace"></h6>
+              </div>
+
+
+
+              <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+                <label for="fireplace_noWork" class="flex-fill set_box" id="fireplace_noWork_Div">
+
+                  <div class="">
+                    <h6>$0</h6>
+                    <label for="fireplace_noWork">No work needed | New/Like New Condition</label>
+                    <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition" name="fireplace" onclick="updateCalculations()" id="fireplace_noWork"/>
+                  </div>
+
+                </label>
+
+                <label for="fireplace_minor" class="flex-fill set_box" id="fireplace_minor_Div">
+
+                  <div class="">
+                    <h6 id="cell_b144_minor_repair">$500</h6>
+                    <label for="fireplace_minor">Minor Repairs</label>
+                    <input style="display: none;" type="radio" value="Minor Repairs" name="fireplace" onclick="updateCalculations()" id="fireplace_minor"/>
+                  </div>
+
+                </label>
+
+                <label for="fireplace_major" class="flex-fill set_box" id="fireplace_major_Div">
+
+                  <div class="">
+                    <h6 id="cell_b145_minor_repair">$2,500</h6>
+                    <label for="fireplace_major">Major Repairs</label>
+                    <input style="display: none;" type="radio" value="Major Repairs" name="fireplace" onclick="updateCalculations()" id="fireplace_major"/>
+                  </div>
+
+                </label>
+
+
+
+              </div>
+
+              <!-- Fireplace -->
+
+
+
+              <!-- Garage -->
+
+            <h3 class="text-center mt-5">Garage</h3>
+            <div class="text-center">
+              <h6 id="cell_b147_Garage">
+              </h6>
+            </div>
+
+            <div class="d-flex flex-wrap" style="gap:10px;">
+
+
+              <label for="garge_noWork" class="flex-fill set_box" id="garge_noWork_Div">
+
+                <div class="">
+                  <h6 id="">$0</h6>
+                  <label for="garge_noWork">No work needed | New/Like New Condition</label>
+                  <input style="display: none;" checked type="radio" value="No work needed | New/Like New Condition"
+                    name="Garage" onclick="updateCalculations()" id="garge_noWork" />
+                </div>
+
+              </label>
+
+              <label for="garge_minor" class="flex-fill set_box" id="garge_minor_Div">
+
+                <div class="">
+                  <h6 id="cell_b149_minor_repair">$1,500</h6>
+                  <label for="garge_minor">Minor Repairs</label>
+                  <input style="display: none;" type="radio" value="Minor Repairs" name="Garage" onclick="updateCalculations()"
+                    id="garge_minor" />
+                </div>
+
+              </label>
+
+              <label for="garge_major" class="flex-fill set_box" id="garge_major_Div">
+
+                <div class="">
+                  <h6 id="cell_b150_minor_repair">$3,000</h6>
+                  <label for="garge_major">Major Repairs</label>
+                  <input style="display: none;" type="radio" value="Major Repairs" name="Garage" onclick="updateCalculations()"
+                    id="garge_major" />
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- Garage -->
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="row">
+
+
+
+      <div style="display: none;" class="col-lg-6 MakePaadingSmall">
+
+          <!-- Flooring -->
+
+
+          <div style="visibility: hidden;" class="card mt-4">
+
+            <h3 class="text-center">Flooring</h3>
+
+            <div class="row">
+
+
+              <div class="col-md-6">
+                <div>
+                  <label>Flooring</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+
+                <div class="text-right">
+                  <!-- <h6 id="cell_b18_flooring">
+                  </h6> -->
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+          
+
+            <label for="flooring_minor">
+
+
+              <div class="row mt-4" id="flooring_minor_Div">
+    
+    
+                <div class="col-md-6">
+                  <div>
+                    <label for="flooring_minor">Minor Repairs | Good Condition </label>
+                    <input style="display: none;" type="radio" value="Minor Repairs | Good Condition" name="flooring" onclick="updateCalculations()" id="flooring_minor"/>
+                    
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+    
+                  <div class="text-right">
+                    <h6 id="cell_b20_minor_repair">
+                    </h6>
+                  </div>
+    
+                </div>
+    
+    
+              </div>
+
+            </label>
+
+
+
+            <label for="flooring_25_per">
+
+              <div class="row mt-4" id="flooring_25_per_Div">
+    
+    
+                <div class="col-md-6">
+                  <div>
+                    <label for="flooring_25_per">25% or less needs replacement or attention </label>
+                    <input style="display: none;" type="radio" value="25% or less needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_25_per"/>
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+    
+                  <div class="text-right">
+                    <h6 id="cell_b21_need_rep">
+                    </h6>
+                  </div>
+    
+                </div>
+    
+    
+              </div>
+
+            </label>
+            
+
+            <label for="flooring_25_50_per">
+
+              <div class="row mt-4" id="flooring_25_50_per_Div">
+    
+    
+                <div class="col-md-6">
+                  <div>
+                    <label for="flooring_25_50_per">25%-50% needs replacement or attention </label>
+                    <input style="display: none;" type="radio" value="25%-50% needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_25_50_per"/>
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+    
+                  <div class="text-right">
+                    <h6 id="cell_b22_need_rep_25">
+                    </h6>
+                  </div>
+    
+                </div>
+    
+    
+              </div>
+
+            </label>
+
+
+
+
+            <label for="flooring_50_75_per">
+
+              <div class="row mt-4" id="flooring_50_75_per_Div">
+    
+    
+                <div class="col-md-6">
+                  <div>
+                    <label for="flooring_50_75_per">50%-75% needs replacement or attention</label>
+                    <input style="display: none;" type="radio" value="50%-75% needs replacement or attention" name="flooring" onclick="updateCalculations()" id="flooring_50_75_per"/>
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+    
+                  <div class="text-right">
+                    <h6 id="cell_b23_need_rep_50">
+                    </h6>
+                  </div>
+    
+                </div>
+    
+    
+              </div>
+
+            </label>
+
+
+
+            <label for="flooring_rep_thr">
+
+              <div class="row mt-4" id="flooring_rep_thr_Div">
+    
+    
+                <div class="col-md-6">
+                  <div>
+                    <label for="flooring_rep_thr">Replacement throughout</label>
+                    <input style="display: none;" type="radio" value="Replacement throughout" name="flooring" onclick="updateCalculations()" id="flooring_rep_thr"/>
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+    
+                  <div class="text-right">
+                    <h6 id="cell_b24_need_rep_thr">
+                    </h6>
+                  </div>
+    
+                </div>
+    
+    
+              </div>
+
+            </label>
+
+
+
+          </div>
+
+        <!-- Flooring -->
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+      
+
+
+
+      
+
+
+
+
+
+
+
+      
+
+
+
+
+       
+       
+
+
+
+
+       
+
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+    <div class="row mt-5">
+
+      <div class="col-lg-12">
+
+
+        <div class="Contract">
+
+
+          <div>
+            <h3 class="text-center">Contract Details</h3>
+          </div>
+          
+  
+          <div class="row mt-4 Contract">
+
+            
+            <div class="col-md-6">
+              <div class="Box_edit_ans card text-center p-3">
+                <p class="mb-0 font-weight-bold ContractAns" id="cell_f5"></p>
+                <p class="mb-0">ARV</p>
+              </div>
+            </div>
+
+
+            <div class="col-md-6 AddSomeMar">
+              <div class="Box_edit_ans card text-center p-3">
+                <p class="mb-0 font-weight-bold ContractAns" id="cell_f6"></p>
+                <p class="mb-0">Rennovation Budget</p>
+              </div>
+            </div>
+
+            
+            <div class="col-md-6 mt-4">
+              <div class="Box_edit_ans card text-center p-3">
+                <p class="mb-0 font-weight-bold ContractAns" id="cell_f7"></p>
+                <p class="mb-0">Investor Maximum Buy</p>
+              </div>
+            </div>
+
+
+            <div class="col-md-6 mt-4">
+              <div class="Box_edit_ans card text-center p-3">
+                <p class="mb-0 font-weight-bold ContractAns" id="cell_f8"></p>
+                <p class="mb-0">Closing Costs</p>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-4">
+              <div class="Box_edit_ans card text-center p-3">
+                <p class="mb-0 font-weight-bold ContractAns" id="cell_f9"></p>
+                <p class="mb-0">Earnest Money </p>
+              </div>
+            </div>
+
+
+
+          </div>
+          
+  
+         
+  
+         
+  
+  
+
+          
+        </div>
+
+      </div>
+
+
+
+      <div class="col-lg-12" style="display: none !important;">
+
+       
+
+
+        <div class="mt-5">
+
+
+          <div>
+            <h3 class="text-center">Negotiation Pricing</h3>
+          </div>
+
+
+          <div class="table-responsive">
+
+
+          </div>
+
+
+
+          <table class="table table table-striped">
+            <!-- <thead class="table-dark">
+                
+                <th>Contract Price</th>
+                <th>Sell For Price</th>
+                <th>Profit</th>
+            </thead> -->
+
+            <!-- <tbody>
+                                            
+              <tr>
+
+                <td id="e14_contract"></td>
+                <td id="f14_sell"></td>
+                <td id="g14_profit"></td>
+
+              </tr>
+                                            
+              <tr>
+
+                <td id="e15_contract"></td>
+                <td id="f15_sell"></td>
+                <td id="g15_profit"></td>
+
+              </tr>
+                                            
+              <tr>
+
+                <td id="e16_contract"></td>
+                <td id="f16_sell"></td>
+                <td id="g16_profit"></td>
+
+              </tr>
+                                            
+              <tr>
+
+                <td id="e17_contract"></td>
+                <td id="f17_sell"></td>
+                <td id="g17_profit"></td>
+
+              </tr>
+                                            
+              <tr>
+
+                <td id="e18_contract"></td>
+                <td id="f18_sell"></td>
+                <td id="g18_profit"></td>
+
+              </tr>
+
+
+              
+              <tr>
+
+                <td id="e19_contract"></td>
+                <td id="f19_sell"></td>
+                <td id="g19_profit"></td>
+
+              </tr>
+
+
+              <tr>
+
+                <td id="e20_contract"></td>
+                <td id="f20_sell"></td>
+                <td id="g20_profit"></td>
+
+              </tr>
+
+
+              <tr>
+
+                <td id="e21_contract"></td>
+                <td id="f21_sell"></td>
+                <td id="g21_profit"></td>
+
+              </tr>
+
+
+            </tbody> -->
+
+          </table>
+
+
+
+
+
+
+
+          <div class="">
+            <ul class="responsive-table">
+                <li class="table-header">
+                    <div class="col col-4 text-left pl-0 heading">Contract Price</div>
+                    <div class="col col-4 text-center heading">Sell For Price</div>
+                    <div class="col col-4 textCenter heading">Profit</div>
+                </li>
+
+
+                
+                <li class="table-row">
+                    <div id="e14_contract"></div>
+                    <div id="f14_sell"></div>
+                    <div id="g14_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e15_contract"></div>
+                    <div id="f15_sell"></div>
+                    <div id="g15_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e16_contract"></div>
+                    <div id="f16_sell"></div>
+                    <div id="g16_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e17_contract"></div>
+                    <div id="f17_sell"></div>
+                    <div id="g17_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e18_contract"></div>
+                    <div id="f18_sell"></div>
+                    <div id="g18_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e19_contract"></div>
+                    <div id="f19_sell"></div>
+                    <div id="g19_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e20_contract"></div>
+                    <div id="f20_sell"></div>
+                    <div id="g20_profit"></div>
+                </li>
+
+                <li class="table-row">
+                    <div id="e21_contract"></div>
+                    <div id="f21_sell"></div>
+                    <div id="g21_profit"></div>
+                </li>
+
+                
+               
+            </ul>                
+          </div>
+
+
+          
+  
+  
+  
+  
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="text-center my-5">
+      <button class="btn mb-5 btn-lg btn-dark customStyle"
+          onclick="generatepdf()">Get Report</button>
+    </div>
+
+  </div>
+
+
+
+
+  
+
+
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"
+    integrity="sha512-USPCA7jmJHlCNRSFwUFq3lAm9SaOjwG8TaB8riqx3i/dAJqhaYilVnaf2eVUH5zjq89BU6YguUuAno+jpRvUqA=="
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"
+    integrity="sha512-USPCA7jmJHlCNRSFwUFq3lAm9SaOjwG8TaB8riqx3i/dAJqhaYilVnaf2eVUH5zjq89BU6YguUuAno+jpRvUqA=="
+    crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+
+  <script src="./assets/js/database.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>

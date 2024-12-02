@@ -1,0 +1,305 @@
+
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Ensure body takes full height */
+}
+
+
+label{
+  font-weight: 600;
+  margin-bottom: 0px !important;
+  font-size: 15px;
+}
+
+
+
+button
+{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+
+
+  .calculator{
+    padding: 10px 30px;
+  }
+
+
+  .topHeader{
+    background: #CAEF45;
+    font-style: italic;
+    text-align: center;
+    color: #000000;
+    font-size: 12px;
+  }
+
+
+  @media (max-width:768px) {
+      .cal_heading{
+          font-size: 30px;
+      }
+
+      .AddSomeMar{
+        margin-top: 1.5rem;
+      }
+      .para_text{
+        font-size: 11px;
+      }
+      .label_text {
+        font-size: 17px;
+      }
+     
+      
+
+      .calculator{
+        padding: 10px;
+      }
+
+      .EditAnswer{
+        font-size: 30px;
+      }
+
+      h1{
+        font-size: 25px;
+      }
+
+      .AddMartop{
+        margin-top: 20px;
+      }
+
+  }
+
+  @media (max-width:1200px) {
+      .MakeBGDark{
+        max-width: 100%;
+      }
+  }
+
+
+  @media (max-width:425px) {
+
+    h1{
+      font-size: 23px;
+    }
+
+    .heading{
+      font-size: 12px;
+      padding: 2px !important;
+    }
+    .responsive-table li{
+      padding: 10px 10px !important;
+    }
+
+      .cal_heading{
+          font-size: 30px;
+      }
+      .para_text{
+        font-size: 11px;
+      }
+      .label_text {
+        font-size: 17px;
+        letter-spacing: -0.7px !important;
+      }
+      .btn_started{
+          font-size: 16px;
+      }
+      .input-group-text{
+        padding: 3px 5px;
+      }
+
+      .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+        font-size: 12px;
+        padding-left: 5px;
+      }
+
+      .calculator{
+        padding: 10px;
+      }
+
+      .MakeBGDark{
+        padding: 20px 20px;
+      }
+
+      .three_headings_para{
+        font-size: 10px;
+      }
+
+      .total_sale_para{
+        font-size: 12px;
+      }
+      .slide_text{
+        font-size: 12px;
+      }
+
+      #roas_b10{
+        font-size: 12px;
+      }
+
+      .topHeader{
+        font-size: 12px;
+      }
+
+
+      .rangeSlider-container{
+        width: 72px;
+
+      }
+      .rangeSlider-container .rangeSlider-subcontainer h4 input {
+        width: 70px;
+      }
+  }
+
+  @media (max-width:390px) {
+
+  
+    
+     
+
+
+      .calculator{
+        padding: 8px;
+      }
+  }
+
+
+  input{
+    color:#0C2642;
+  }
+
+
+
+  h1{
+    font-weight: bold;
+    color: #0C2642 !important;
+  }
+
+
+  .AddMartop{
+    margin-top: 30px;
+  }
+
+
+  @media (max-width: 992px) {
+      .card{
+        max-width:100%
+      }
+
+      
+  }
+
+
+  @media (max-width: 992px) {
+     
+    .buttonDiv{
+        position: static;
+        margin-top: 40px;
+    }
+    
+    .MakePaadingSmall{
+      padding: 20px 30px;
+    }
+
+    .card{
+      padding: 40px 30px;
+      margin-bottom: 30px;
+    }
+
+  }
+
+
+.card{
+  padding: 30px 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+.form-control{
+  text-align: start;
+}
+
+
+
+@media (max-width:525px) {
+    label{
+      font-size: 12px;
+    }
+}
+
+
+.border-highlight {
+  background: #000 !important;
+  color: #FFF !important;
+}
+
+
+.set_box{
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    border-radius: 5px;
+    border: 2px solid #000;
+    /* border: 1px solid #F25A28; */
+    cursor: pointer;
+    background-color: #FFF;
+    text-align: center;
+}
+
+
+
+.Contract .card{
+  margin-bottom: 0px;
+}
+
+.accordion-button{
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #f5f5f5;
+}
+
+
+
+
+
+
+
+.responsive-table {
+  padding: 0px !important;
+}
+
+.responsive-table li {
+  border-radius: 3px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.responsive-table .table-header {
+  background-color: #000;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.responsive-table .table-row {
+  background-color: #ffffff;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.textCenter {
+  text-align: end;
+}
+
+
+.ContractAns{
+  font-size: 20px;
+}
+
+
